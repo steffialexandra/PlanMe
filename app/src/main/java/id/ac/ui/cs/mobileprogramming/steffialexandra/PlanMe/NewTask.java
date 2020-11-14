@@ -34,7 +34,7 @@ public class NewTask extends AppCompatActivity {
             tasktitle = findViewById(R.id.tasktitle);
             desc = findViewById(R.id.desc);
             taskdate = findViewById(R.id.taskdate);
-            priority = findViewById(R.id.priority)
+            priority = findViewById(R.id.priority);
             newtitle = findViewById(R.id.newtitle);
             newdesc = findViewById(R.id.newdesc);
             newdate = findViewById(R.id.newdate);

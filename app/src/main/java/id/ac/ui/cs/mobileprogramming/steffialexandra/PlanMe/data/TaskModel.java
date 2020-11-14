@@ -4,12 +4,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-public class TaskModel {
+@Entity(tableName = "task_model")
+public class TaskModel implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int taskid;
 
     @ColumnInfo(name = "tasktitle")

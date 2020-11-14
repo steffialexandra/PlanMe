@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     TaskAdapter taskAdapter;
     ArrayList<TaskModel> taskList;
     RecyclerView tasks;
+    LinearLayoutManager linearLayoutManager;
+    TaskDatabase taskDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
