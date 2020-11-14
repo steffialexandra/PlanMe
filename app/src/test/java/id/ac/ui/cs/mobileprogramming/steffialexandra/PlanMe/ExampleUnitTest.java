@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.steffialexandra.project;
+package id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe;
 
 import org.junit.Test;
 
