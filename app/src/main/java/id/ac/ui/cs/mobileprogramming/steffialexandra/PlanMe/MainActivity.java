@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
@@ -23,17 +24,18 @@ public class MainActivity extends AppCompatActivity {
     TaskAdapter taskAdapter;
     ArrayList<TaskModel> taskList;
     RecyclerView tasks;
+    TaskAdapter adapter;
     LinearLayoutManager linearLayoutManager;
-    TaskDatabase taskDb;
+    TaskDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TaskDatabase db = Room.databaseBuilder(getApplicationContext(),
-                TaskDatabase.class, "database-name").build();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        titlepage = findViewById(R.id.titlepage);
+        database = TaskDatabase.getInstance(this);
+        taskList = (ArrayList<TaskModel>) database.daoAccess().getAll();
         btnAddNew = findViewById(R.id.btnAddNew);
-
         btnAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,35 +44,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        tasks = findViewById(R.id.tasklist);
-        tasks.setLayoutManager(new LinearLayoutManager(this));
-        taskList = new ArrayList<TaskModel>();
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
- /*
-        // get data from firebase
-        reference = FirebaseDatabase.getInstance().getReference().child("DoesApp");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // set code to retrive data and replace layout
-                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
-                {
-                    MyDoes p = dataSnapshot1.getValue(MyDoes.class);
-                    list.add(p);
-                }
-                doesAdapter = new DoesAdapter(MainActivity.this, list);
-                ourdoes.setAdapter(doesAdapter);
-                doesAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // set code to show an error
-                Toast.makeText(getApplicationContext(), "No Data", Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
     }
 }

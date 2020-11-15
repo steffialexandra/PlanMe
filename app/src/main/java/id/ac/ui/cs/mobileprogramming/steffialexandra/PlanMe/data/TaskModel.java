@@ -23,7 +23,7 @@ public class TaskModel implements Serializable {
     public String desc;
 
     @ColumnInfo(name = "priority")
-    public String priority;
+    public boolean priority;
 
     public int getTaskid() {
         return taskid;
@@ -57,11 +57,11 @@ public class TaskModel implements Serializable {
         this.desc = desc;
     }
 
-    public String getPriority() {
+    public boolean getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(boolean priority) {
         this.priority = priority;
     }
 

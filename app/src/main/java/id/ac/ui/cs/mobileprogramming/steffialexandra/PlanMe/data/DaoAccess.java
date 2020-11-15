@@ -11,13 +11,14 @@ import java.util.List;
 @Dao
 public interface DaoAccess {
 
-    @Query("SELECT * FROM taskModel")
+
+    @Query("SELECT * FROM task_model")
     List<TaskModel> getAll();
 
-    @Query("SELECT * FROM taskModel WHERE taskid IN (:taskIds)")
+    @Query("SELECT * FROM task_model WHERE taskid IN (:taskIds)")
     List<TaskModel> loadAllByIds(int[] taskIds);
 
-    @Query("SELECT * FROM taskModel WHERE tasktitle LIKE :keyword")
+    @Query("SELECT * FROM task_model WHERE tasktitle LIKE :keyword")
     TaskModel findByName(String keyword);
 
     @Insert
@@ -27,8 +28,8 @@ public interface DaoAccess {
     int updateTask(TaskModel task);
 
     @Delete
-    void deleteTask(TaskModel task);
+    void reset(List<TaskModel> taskModelList);
 
-   /* @Query("DELETE FROM Item WHERE id = :itemId")
-    int deleteItem(long itemId);*/
+    @Query("DELETE FROM task_model WHERE taskid = :itemId")
+    int deleteItem(long itemId);
 }
