@@ -25,11 +25,9 @@ import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView titlepage;
     Button btnAddNew;
-    TaskAdapter taskAdapter;
     ArrayList<TaskModel> taskList;
-    RecyclerView tasks;
+    RecyclerView tasksRecycler;
     TaskAdapter adapter;
     LinearLayoutManager linearLayoutManager;
     TaskDatabase database;
@@ -45,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(taskList != null){
             Log.v("msg", "null gan");
-            tasks = findViewById(R.id.tasklist);
+            tasksRecycler = findViewById(R.id.tasklist);
             linearLayoutManager = new LinearLayoutManager(this);
-            tasks.setLayoutManager(linearLayoutManager);
+            tasksRecycler.setLayoutManager(linearLayoutManager);
             adapter = new TaskAdapter(MainActivity.this, taskList);
-            tasks.setAdapter(adapter);
+            tasksRecycler.setAdapter(adapter);
         }
         btnAddNew = findViewById(R.id.btnAddNew);
         btnAddNew.setOnClickListener(new View.OnClickListener() {

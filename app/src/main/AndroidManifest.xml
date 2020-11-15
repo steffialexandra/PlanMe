@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <service android:name=".service.NotificationService" android:enabled="true"/>
+        <service android:name=".service.CalendarService" android:enabled="true"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

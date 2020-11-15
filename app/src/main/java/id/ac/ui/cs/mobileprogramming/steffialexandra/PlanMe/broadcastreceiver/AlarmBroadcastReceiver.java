@@ -20,7 +20,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(200, builder.build());
-        // context.startActivity(); --> nanti buat gabisa dipake pas battery low misalnya
     }
 }
 

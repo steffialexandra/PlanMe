@@ -121,7 +121,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         return taskList.size();
     }
 
-
     Context context;
     ArrayList<TaskModel> taskList;
 
