@@ -18,8 +18,8 @@ public interface DaoAccess {
     @Query("SELECT * FROM task_model WHERE taskid IN (:taskIds)")
     List<TaskModel> loadAllByIds(int[] taskIds);
 
-    @Query("SELECT * FROM task_model WHERE tasktitle LIKE :keyword")
-    TaskModel findByName(String keyword);
+    @Query("SELECT * FROM task_model WHERE taskid LIKE :id")
+    TaskModel findById(int id);
 
     @Insert
     long insertTask(TaskModel task);

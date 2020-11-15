@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PlanMe</string>
+    <string name="viewpagetitle">Detil Plan</string>
+    <string name="tasktitle">Judul Plan</string>
+    <string name="desc">Deskripsi</string>
+    <string name="taskdate">Tanggal</string>
+    <string name="priority">Prioritas</string>
+    <string name="delbtn">Hapus</string>
+    <string name="addbtn">+</string>
+    <string name="createpagetitle">Buat Plan Baru</string>
+    <string name="hinttitle">Judul dari plan</string>
+    <string name="hintdesc">Berikan deskripsi tambahan</string>
+    <string name="createbtn">Buat Plan</string>
+    <string name="cancelbtn">Batal</string>
+    <string name="deletedialogtitle">Hapus</string>
+    <string name="deletedialogmsg">Apakah anda yakin ingin menghapus plan ini?</string>
+    <string name="no">Tidak</string>
+    <string name="yes">Ya</string>
+</resources>

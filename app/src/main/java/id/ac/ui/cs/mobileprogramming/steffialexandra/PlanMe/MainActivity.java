@@ -5,7 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         database = TaskDatabase.getInstance(this);
         taskList = (ArrayList<TaskModel>) database.daoAccess().getAll();
+        /*database.daoAccess().deleteAll();
+        taskList.clear();*/
 
         if(taskList != null){
             Log.v("msg", "null gan");
@@ -54,4 +59,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

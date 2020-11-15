@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
 <LinearLayout
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F4F4F4"
@@ -22,17 +21,17 @@
         android:layout_height="198dp">
 
         <TextView
-            android:id="@+id/viewpagetitle"
+            android:id="@+id/titlepage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:gravity="center_horizontal"
-            android:text="@string/viewpagetitle"
+            android:text="@string/createpagetitle"
             android:textAlignment="center"
             android:textColor="#FFF"
             android:textSize="26sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -48,8 +47,6 @@
         android:paddingTop="22dp"
         android:paddingBottom="22dp"
         android:translationZ="90dp">
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,10 +64,11 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/newtitle"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:hint="@string/hinttitle"
                 android:inputType="text"
                 android:paddingLeft="12dp"
                 android:textColor="@color/colorPrimaryDark"
@@ -95,12 +93,13 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/newdesc"
                 android:layout_width="match_parent"
-                android:minHeight="55dp"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
+                android:hint="@string/hintdesc"
                 android:inputType="text"
+                android:maxLength="250"
                 android:paddingLeft="12dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="#B5B5B5" />
@@ -124,61 +123,67 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp" />
 
-            <TextView
+            <DatePicker
                 android:id="@+id/newdate"
-                android:layout_height="55dp"
-                android:layout_width="wrap_content"
-                android:endYear="2100"
-                android:startYear="1900"
-                android:paddingLeft="12dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="#B5B5B5">
-            </TextView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/priority"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/priority"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
-
-            <CheckBox
-                android:button="@android:drawable/btn_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/newpriority"
-                android:clickable="false"
-                android:background="@android:color/transparent"
-                android:layout_gravity="center"/>
+                android:datePickerMode="calendar"/>
 
-        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/priority"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="@string/priority"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="18sp" />
+
+                        <CheckBox
+                            android:button="@android:drawable/btn_star"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/newpriority"
+                            android:background="@android:color/transparent"
+                            android:layout_gravity="center"/>
+
+                    </LinearLayout>
 
 
-    </LinearLayout>
+                </LinearLayout>
 
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="14dp"
-        android:text="@string/delbtn"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
-        android:background="@drawable/deletebtn"
-        android:textSize="22sp"
-        android:layout_width="match_parent"
-        android:layout_height="55dp" />
+                <Button
+                    android:id="@+id/saveButton"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/createbtn"
+                    android:textColor="#FFF"
+                    android:textAllCaps="false"
+                    android:background="@drawable/savebtn"
+                    android:textSize="22sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp" />
 
-</LinearLayout>
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/cancelbtn"
+                    android:textColor="#AFAFAF"
+                    android:textAllCaps="false"
+                    android:background="@drawable/cancelbtn"
+                    android:textSize="22sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp" />
+            </LinearLayout>
 </ScrollView>
