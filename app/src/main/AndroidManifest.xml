@@ -30,10 +30,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.AppBroadcastReceiver" >
+        <receiver android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.AlarmBroadcastReceiver" >
             <!--<intent-filter>
                 <action android:name="android.intent.action.BATTERY_LOW" />
             </intent-filter>-->
+        </receiver>
+        <receiver android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.BatteryBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
         </receiver>
     </application>
 

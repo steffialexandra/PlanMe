@@ -17,4 +17,5 @@
     <string name="deletedialogmsg">Apakah anda yakin ingin menghapus plan ini?</string>
     <string name="no">Tidak</string>
     <string name="yes">Ya</string>
+    <string name="errormsg">Terjadi sebuah kesalahan!</string>
 </resources>

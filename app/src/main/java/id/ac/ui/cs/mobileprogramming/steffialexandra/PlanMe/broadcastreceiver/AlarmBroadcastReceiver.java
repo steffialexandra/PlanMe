@@ -10,7 +10,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.R;
 
-public class AppBroadcastReceiver extends BroadcastReceiver {
+public class AlarmBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "PlanMe")
@@ -21,7 +21,6 @@ public class AppBroadcastReceiver extends BroadcastReceiver {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(200, builder.build());
         // context.startActivity(); --> nanti buat gabisa dipake pas battery low misalnya
-//        Toast.makeText(context, "Your battery is low, please charge your device!", Toast.LENGTH_LONG).show();
     }
 }
 

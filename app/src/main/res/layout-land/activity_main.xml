@@ -35,7 +35,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasklist"
-        android:layout_width="693dp"
+        android:layout_width="638dp"
         android:layout_height="251dp"
         android:layout_marginTop="156dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,12 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.AppBroadcastReceiver;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.AlarmBroadcastReceiver;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 
 import static android.content.Context.ALARM_SERVICE;
-import static android.provider.Settings.Secure.getString;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
 
@@ -95,7 +93,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                                 notifyItemRangeChanged(position, taskList.size());
                                 dialogs.dismiss();
                                 dialog.dismiss();
-                                Intent intent = new Intent(context, AppBroadcastReceiver.class);
+                                Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
                                 PendingIntent pi = PendingIntent.getBroadcast(context, Integer.valueOf(taskId), intent, 0);
                                 AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
                                 am.cancel(pi);
