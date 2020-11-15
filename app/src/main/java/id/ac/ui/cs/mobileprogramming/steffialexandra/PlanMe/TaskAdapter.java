@@ -23,8 +23,6 @@ import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
 
-    String tasktitle, desc, taskdate;
-    CheckBox priority;
     TaskDatabase database;
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -35,9 +33,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
             tasktitle = (TextView) itemView.findViewById(R.id.tasktitle);
             desc = (TextView) itemView.findViewById(R.id.desc);
             taskdate = (TextView) itemView.findViewById(R.id.taskdate);
-            priority = itemView.findViewById(R.id.priority);
-
-
+            priority = (CheckBox)itemView.findViewById(R.id.priority);
         }
     }
 

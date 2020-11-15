@@ -32,4 +32,7 @@ public interface DaoAccess {
 
     @Query("DELETE FROM task_model WHERE taskid = :itemId")
     int deleteItem(long itemId);
+
+    @Query("DELETE FROM task_model")
+    int deleteAll();
 }

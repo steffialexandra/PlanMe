@@ -7,8 +7,11 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,20 +35,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         database = TaskDatabase.getInstance(this);
         taskList = (ArrayList<TaskModel>) database.daoAccess().getAll();
+
+        if(taskList != null){
+            Log.v("msg", "null gan");
+            tasks = findViewById(R.id.tasklist);
+            linearLayoutManager = new LinearLayoutManager(this);
+            tasks.setLayoutManager(linearLayoutManager);
+            adapter = new TaskAdapter(MainActivity.this, taskList);
+            tasks.setAdapter(adapter);
+        }
         btnAddNew = findViewById(R.id.btnAddNew);
         btnAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new Intent(MainActivity.this,NewTask.class);
-                startActivity(a);
+                startActivity(new Intent(MainActivity.this, NewTask.class));
             }
         });
-
-
-
-
     }
 }
