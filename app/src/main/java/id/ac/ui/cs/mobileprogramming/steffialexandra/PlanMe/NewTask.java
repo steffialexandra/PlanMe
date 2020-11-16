@@ -83,14 +83,18 @@ public class NewTask extends AppCompatActivity {
                         newTask.setTaskdate(date);
                         newTask.setPriority(newpriority.isChecked());
                         UserModel currentUser = (UserModel) getIntent().getSerializableExtra("User");
-                        newHistory.setUser(currentUser);
-                        newHistory.setTask(newTask);
+                        newHistory.setUser(currentUser.getUsername());
+                        newTask.setCreator(currentUser.getUsername());
+                        newHistory.setTask(newTask.getTitle());
+                        newHistory.setType(0);
                         database.daoAccess().insertTask(newTask);
-                        adapter = new TaskAdapter(NewTask.this, taskList);
+                        adapter = new TaskAdapter(NewTask.this, taskList, currentUser);
                         taskList.clear();
                         taskList.addAll(database.daoAccess().getAllTasks());
                         adapter.notifyDataSetChanged();
-                        startActivity(new Intent(NewTask.this, TaskActivity.class));
+                        Intent newi = new Intent(NewTask.this, TaskActivity.class);
+                        newi.putExtra("User", currentUser);
+                        startActivity(newi);
                         Toast.makeText(getApplicationContext(),"Plan Created!",Toast.LENGTH_SHORT).show();
                         // memanggil service untuk CalendarProvider dan AlarmManager
                         startService(new Intent(NewTask.this, NotificationService.class).putExtra("date", date).putExtra("taskid", taskid));

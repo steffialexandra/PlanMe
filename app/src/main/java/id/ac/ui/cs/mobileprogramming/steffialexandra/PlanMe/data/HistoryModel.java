@@ -14,13 +14,24 @@ public class HistoryModel implements Serializable {
     public int historyid;
 
     @ColumnInfo(name = "userModel")
-    public UserModel user;
+    public String user;
 
     @ColumnInfo(name = "taskModel")
-    public TaskModel task;
+    public String task;
 
     @ColumnInfo(name = "date")
-    public Date date;
+    public String date;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    @ColumnInfo(name = "type")
+    public int type;
 
     public int getHistoryid() {
         return historyid;
@@ -30,27 +41,27 @@ public class HistoryModel implements Serializable {
         this.historyid = historyid;
     }
 
-    public UserModel getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(UserModel user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
-    public TaskModel getTask() {
+    public String getTask() {
         return task;
     }
 
-    public void setTask(TaskModel task) {
+    public void setTask(String task) {
         this.task = task;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

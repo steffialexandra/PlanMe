@@ -15,8 +15,8 @@ public interface DaoAccess {
     @Query("SELECT * FROM task_model")
     List<TaskModel> getAllTasks();
 
-    @Query("SELECT * FROM task_model WHERE taskid IN (:taskIds)")
-    List<TaskModel> loadAllByIds(int[] taskIds);
+    @Query("SELECT * FROM task_model WHERE creator IN (:name)")
+    List<TaskModel> loadAllByUsername(String name);
 
     @Query("SELECT * FROM task_model WHERE taskid LIKE :id")
     TaskModel findById(int id);
@@ -38,7 +38,7 @@ public interface DaoAccess {
 
     //for user model
     @Insert
-    UserModel addUser(UserModel userModel);
+    long addUser(UserModel userModel);
 
     @Query("SELECT * FROM user_model")
     List<UserModel> getAllUsers();
@@ -51,6 +51,8 @@ public interface DaoAccess {
 
     //for history model
     @Query("SELECT * FROM history_model WHERE userModel LIKE:user")
-    List<HistoryModel> getAllUserHistory(UserModel user);
+    List<HistoryModel> getAllUserHistoryByUsername(String user);
 
+    @Query("SELECT * FROM user_model WHERE username LIKE:uname")
+    boolean getUserByUsername(String uname);
 }

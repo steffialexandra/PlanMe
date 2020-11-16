@@ -20,5 +20,6 @@
     <string name="fillfields">Please fill all the fields!</string>
     <string name="nouser">User not found!</string>
     <string name="logout">-</string>
+    <string name="wrongpass">Wrong Password!</string>
 
 </resources>

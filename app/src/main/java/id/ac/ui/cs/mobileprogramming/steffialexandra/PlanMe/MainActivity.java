@@ -2,6 +2,7 @@ package id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.BatteryBroadcastReceiver;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.DaoAccess;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
@@ -28,12 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
     private DaoAccess daoAccess;
     private ProgressDialog progressDialog;
+    private BatteryBroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        broadcastReceiver = new BatteryBroadcastReceiver();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Checking User...");
@@ -70,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(i);
                                 finish();
                             }else{
+                                if(daoAccess.getUserByUsername(edtUname.getText().toString()) == true){
+                                    Toast.makeText(MainActivity.this, R.string.wrongpass, Toast.LENGTH_SHORT).show();
+                                }
                                 Toast.makeText(MainActivity.this, R.string.nouser, Toast.LENGTH_SHORT).show();
                             }
                             progressDialog.dismiss();
@@ -83,6 +90,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
+        registerReceiver(broadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+
+        // Unregister reciever if activity is not in front
+        this.unregisterReceiver(broadcastReceiver);
+        super.onPause();
     }
 
     private boolean emptyValidation() {

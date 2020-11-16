@@ -33,9 +33,9 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_activity);
         database = PlanMeDatabase.getInstance(this);
-        taskList = (ArrayList<TaskModel>) database.daoAccess().getAllTasks();
         currentUser = (UserModel) getIntent().getSerializableExtra("User");
         uname = findViewById(R.id.username);
+        taskList = (ArrayList<TaskModel>) database.daoAccess().loadAllByUsername(currentUser.getUsername());
         uname.setText("Welcome, " + currentUser.getUsername());
         /*database.daoAccess().deleteAll();
         taskList.clear();*/
@@ -44,7 +44,7 @@ public class TaskActivity extends AppCompatActivity {
             tasksRecycler = findViewById(R.id.tasklist);
             linearLayoutManager = new LinearLayoutManager(this);
             tasksRecycler.setLayoutManager(linearLayoutManager);
-            adapter = new TaskAdapter(TaskActivity.this, taskList);
+            adapter = new TaskAdapter(TaskActivity.this, taskList, currentUser);
             tasksRecycler.setAdapter(adapter);
         }
         btnAddNew = findViewById(R.id.btnAddNew);
@@ -54,12 +54,11 @@ public class TaskActivity extends AppCompatActivity {
                 Intent i = new Intent(TaskActivity.this, NewTask.class);
                 i.putExtra("User", currentUser);
                 startActivity(i);
-
             }
         });
 
         logoutBtn = findViewById(R.id.logout);
-        btnAddNew.setOnClickListener(new View.OnClickListener() {
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(TaskActivity.this, MainActivity.class);
@@ -70,6 +69,5 @@ public class TaskActivity extends AppCompatActivity {
         });
 
     }
-
 
 }

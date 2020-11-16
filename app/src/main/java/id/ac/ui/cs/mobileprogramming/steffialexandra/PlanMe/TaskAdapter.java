@@ -21,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.AlarmBroadcastReceiver;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.HistoryModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -65,7 +67,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                 int height = WindowManager.LayoutParams.MATCH_PARENT;
                 dialog.getWindow().setLayout(width,height);
                 dialog.show();
-                TextView tasktitle = dialog.findViewById(R.id.newtitle);
+                final TextView tasktitle = dialog.findViewById(R.id.newtitle);
                 tasktitle.setText(taskList.get(position).getTitle());
                 TextView desc = dialog.findViewById(R.id.newdesc);
                 desc.setText(taskList.get(position).getDesc());
@@ -88,6 +90,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                                 TaskModel d = taskList.get(myViewHolder.getAdapterPosition());
                                 database.daoAccess().deleteItem(d.taskid);
                                 int position = myViewHolder.getAdapterPosition();
+                                HistoryModel newHistory = new HistoryModel();
+                                newHistory.setUser(userModel.getUsername());
+                                newHistory.setTask(tasktitle.toString());
+                                newHistory.setType(1);
                                 taskList.remove(position);
                                 notifyItemRemoved(position);
                                 notifyItemRangeChanged(position, taskList.size());
@@ -125,9 +131,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     Context context;
     ArrayList<TaskModel> taskList;
+    UserModel userModel;
 
-    public TaskAdapter(Context c, ArrayList<TaskModel> p) {
+    public TaskAdapter(Context c, ArrayList<TaskModel> p, UserModel u) {
         context = c;
         taskList = p;
+        userModel = u;
     }
 }

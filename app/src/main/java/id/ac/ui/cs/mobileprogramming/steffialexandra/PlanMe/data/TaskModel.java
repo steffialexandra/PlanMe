@@ -25,6 +25,21 @@ public class TaskModel implements Serializable {
     @ColumnInfo(name = "priority")
     public boolean priority;
 
+    public boolean isPriority() {
+        return priority;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    @ColumnInfo(name = "creator")
+    public String creator;
+
     public int getTaskid() {
         return taskid;
     }
