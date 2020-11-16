@@ -21,14 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.AlarmBroadcastReceiver;
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskDatabase;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 
 import static android.content.Context.ALARM_SERVICE;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
 
-    TaskDatabase database;
+    PlanMeDatabase database;
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tasktitle, desc, taskdate;
@@ -50,7 +50,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
-        database = TaskDatabase.getInstance(context);
+        database = PlanMeDatabase.getInstance(context);
         myViewHolder.tasktitle.setText(taskList.get(position).getTitle());
         myViewHolder.taskdate.setText(taskList.get(position).getTaskdate());
         myViewHolder.priority.setChecked(taskList.get(position).getPriority());

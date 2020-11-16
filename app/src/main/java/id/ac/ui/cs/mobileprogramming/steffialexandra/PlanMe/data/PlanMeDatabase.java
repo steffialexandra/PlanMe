@@ -7,14 +7,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {TaskModel.class}, version = 1, exportSchema = false)
-public abstract  class TaskDatabase extends RoomDatabase {
-    private static TaskDatabase database;
+@Database(entities = {TaskModel.class, UserModel.class, HistoryModel.class}, version = 1, exportSchema = false)
+public abstract  class PlanMeDatabase extends RoomDatabase {
+    private static PlanMeDatabase database;
     private static String DATABASE_NAME = "database";
-    public synchronized static TaskDatabase getInstance(Context context){
+    public synchronized static PlanMeDatabase getInstance(Context context){
         if(database == null){
             database = Room.databaseBuilder(context.getApplicationContext()
-            ,TaskDatabase.class, DATABASE_NAME)
+            , PlanMeDatabase.class, DATABASE_NAME)
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();

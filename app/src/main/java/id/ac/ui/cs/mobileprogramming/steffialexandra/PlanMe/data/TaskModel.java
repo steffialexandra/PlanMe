@@ -65,19 +65,4 @@ public class TaskModel implements Serializable {
         this.priority = priority;
     }
 
-
-   /* String title;
-    Date datetask;
-    String desc;
-    boolean priority;
-
-    public TaskModel() {
-    }
-
-    public TaskModel(String title, Date datetask, String desc, boolean priority) {
-        this.title = title;
-        this.datetask = datetask;
-        this.desc = desc;
-        this.priority = priority;
-    }*/
 }

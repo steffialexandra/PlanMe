@@ -10,13 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.room.Room;
 
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.DaoAccess;
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.DaoAccess_Impl;
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskDatabase;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 
 public class MyContentProvider extends ContentProvider {
 
     // Defines a handle to the Room database
-    private TaskDatabase taskDatabase;
+    private PlanMeDatabase planMeDatabase;
 
     // Defines a Data Access Object to perform the database operations
     private DaoAccess daoAccess;
@@ -25,8 +24,8 @@ public class MyContentProvider extends ContentProvider {
     private static final String DBNAME = "task_model";
 
     public boolean onCreate() {
-        taskDatabase = Room.databaseBuilder(getContext(), TaskDatabase.class, DBNAME).build();
-        daoAccess = taskDatabase.daoAccess();
+        planMeDatabase = Room.databaseBuilder(getContext(), PlanMeDatabase.class, DBNAME).build();
+        daoAccess = planMeDatabase.daoAccess();
         return true;
     }
 

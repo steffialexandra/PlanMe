@@ -1,15 +1,11 @@
 package id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe;
 
-import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,19 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.Format;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.AlarmBroadcastReceiver;
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskDatabase;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.CalendarService;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.NotificationService;
@@ -44,7 +35,7 @@ public class NewTask extends AppCompatActivity {
         DatePicker newdate;
         CheckBox newpriority;
         Button saveButton, cancelButton;
-        TaskDatabase database;
+        PlanMeDatabase database;
         TaskAdapter adapter;
         ArrayList<TaskModel> taskList;
         Integer number = new Random().nextInt();
@@ -55,7 +46,7 @@ public class NewTask extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.new_task_layout);
 
-            database = TaskDatabase.getInstance(this);
+            database = PlanMeDatabase.getInstance(this);
             taskList = new ArrayList<TaskModel>();
 
             //create notification
@@ -91,7 +82,7 @@ public class NewTask extends AppCompatActivity {
                         database.daoAccess().insertTask(newTask);
                         adapter = new TaskAdapter(NewTask.this, taskList);
                         taskList.clear();
-                        taskList.addAll(database.daoAccess().getAll());
+                        taskList.addAll(database.daoAccess().getAllTasks());
                         adapter.notifyDataSetChanged();
                         startActivity(new Intent(NewTask.this, MainActivity.class));
                         Toast.makeText(getApplicationContext(),"Plan Created!",Toast.LENGTH_SHORT).show();
