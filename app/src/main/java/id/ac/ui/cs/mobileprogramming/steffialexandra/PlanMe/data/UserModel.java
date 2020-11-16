@@ -16,6 +16,11 @@ public class UserModel implements Serializable {
     @ColumnInfo(name = "username")
     public String username;
 
+    public UserModel(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public int getUserid() {
         return userid;
     }

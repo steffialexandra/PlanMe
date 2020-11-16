@@ -18,4 +18,7 @@
     <string name="no">Tidak</string>
     <string name="yes">Ya</string>
     <string name="errormsg">Terjadi sebuah kesalahan!</string>
+    <string name="fillfields">Tolong isi semua field yang ada!</string>
+    <string name="nouser">User tidak ditemukan!</string>
+    <string name="logout">-</string>
 </resources>

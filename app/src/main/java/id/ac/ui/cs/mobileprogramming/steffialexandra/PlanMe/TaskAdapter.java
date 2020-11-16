@@ -93,6 +93,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                                 notifyItemRangeChanged(position, taskList.size());
                                 dialogs.dismiss();
                                 dialog.dismiss();
+
+                                //membatalkan alarmmanager untuk objek yang ingin dihapus
                                 Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
                                 PendingIntent pi = PendingIntent.getBroadcast(context, Integer.valueOf(taskId), intent, 0);
                                 AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);

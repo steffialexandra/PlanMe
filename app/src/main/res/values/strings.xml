@@ -17,5 +17,8 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="errormsg">An error has occured!</string>
+    <string name="fillfields">Please fill all the fields!</string>
+    <string name="nouser">User not found!</string>
+    <string name="logout">-</string>
 
 </resources>

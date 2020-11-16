@@ -58,19 +58,19 @@
             android:src="@mipmap/app_logo" />
 
         <Button
-            android:id="@+id/btSignIn"
+            android:id="@+id/btRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/btSignUp"
+            android:layout_above="@id/btCancel"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/button_white"
-            android:text="Sign In"
+            android:text="Register"
             android:textColor="@color/colorPrimary" />
 
         <Button
-            android:id="@+id/btSignUp"
+            android:id="@+id/btCancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -78,7 +78,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/button_red"
-            android:text="Sign Up"
+            android:text="Cancel"
             android:textColor="@color/colorWhite" />
     </RelativeLayout>
 

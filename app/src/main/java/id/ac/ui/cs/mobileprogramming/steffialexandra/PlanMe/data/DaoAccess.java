@@ -46,6 +46,9 @@ public interface DaoAccess {
     @Query("SELECT * FROM user_model WHERE username LIKE :uname")
     UserModel findByUsername(String uname);
 
+    @Query("SELECT * FROM user_model WHERE username LIKE :uname AND password LIKE :password")
+    UserModel getUser(String uname, String password);
+
     //for history model
     @Query("SELECT * FROM history_model WHERE userModel LIKE:user")
     List<HistoryModel> getAllUserHistory(UserModel user);

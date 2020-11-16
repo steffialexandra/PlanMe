@@ -22,8 +22,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.HistoryModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.CalendarService;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.NotificationService;
 
@@ -74,17 +76,21 @@ public class NewTask extends AppCompatActivity {
                     else{
                         //creating plan
                         TaskModel newTask = new TaskModel();
+                        HistoryModel newHistory = new HistoryModel();
                         newTask.setDesc(newdesc.getText().toString());
                         newTask.setTitle(newtitle.getText().toString());
                         String date = getDateFromDatePicker(newdate);
                         newTask.setTaskdate(date);
                         newTask.setPriority(newpriority.isChecked());
+                        UserModel currentUser = (UserModel) getIntent().getSerializableExtra("User");
+                        newHistory.setUser(currentUser);
+                        newHistory.setTask(newTask);
                         database.daoAccess().insertTask(newTask);
                         adapter = new TaskAdapter(NewTask.this, taskList);
                         taskList.clear();
                         taskList.addAll(database.daoAccess().getAllTasks());
                         adapter.notifyDataSetChanged();
-                        startActivity(new Intent(NewTask.this, MainActivity.class));
+                        startActivity(new Intent(NewTask.this, TaskActivity.class));
                         Toast.makeText(getApplicationContext(),"Plan Created!",Toast.LENGTH_SHORT).show();
                         // memanggil service untuk CalendarProvider dan AlarmManager
                         startService(new Intent(NewTask.this, NotificationService.class).putExtra("date", date).putExtra("taskid", taskid));
@@ -97,7 +103,7 @@ public class NewTask extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(NewTask.this, MainActivity.class));
+                    startActivity(new Intent(NewTask.this, TaskActivity.class));
                 }
             });
 
