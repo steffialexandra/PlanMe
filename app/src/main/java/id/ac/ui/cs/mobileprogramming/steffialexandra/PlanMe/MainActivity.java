@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
     private DaoAccess daoAccess;
     private ProgressDialog progressDialog;
-    private BatteryBroadcastReceiver broadcastReceiver;
+    private BatteryBroadcastReceiver batteryBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        broadcastReceiver = new BatteryBroadcastReceiver();
+        batteryBroadcastReceiver = new BatteryBroadcastReceiver();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Checking User...");
@@ -96,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
-        registerReceiver(broadcastReceiver, filter);
+        registerReceiver(batteryBroadcastReceiver, filter);
     }
 
     @Override
     protected void onPause() {
 
         // Unregister reciever if activity is not in front
-        this.unregisterReceiver(broadcastReceiver);
+        this.unregisterReceiver(batteryBroadcastReceiver);
         super.onPause();
     }
 

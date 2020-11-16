@@ -3,6 +3,11 @@
     package="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe">
     <uses-permission android:name="android.permission.READ_PHONE_STATE" >
     </uses-permission>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission
+        android:name="android.permission.WRITE_CALENDAR"/>
     <application
         android:allowBackup="false"
         android:icon="@mipmap/app_logo"
@@ -10,8 +15,8 @@
         android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <service android:name=".service.NotificationService" android:enabled="true"/>
-        <service android:name=".service.CalendarService" android:enabled="true"/>
+        <service android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.NotificationService" android:enabled="true"/>
+        <service android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.CalendarService" android:enabled="true"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,6 +52,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".broadcastreceiver.AlarmBroadcastReceiver">
+        </receiver>
         <receiver android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.BatteryBroadcastReceiver" android:exported="false" >
         </receiver>
     </application>

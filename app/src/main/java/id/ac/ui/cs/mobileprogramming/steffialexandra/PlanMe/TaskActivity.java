@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.BatteryBroadcastReceiver;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
@@ -27,11 +32,15 @@ public class TaskActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     PlanMeDatabase database;
     UserModel currentUser;
+    BatteryBroadcastReceiver batteryBroadcastReceiver = new BatteryBroadcastReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_activity);
+
+        //create notification
+        createNotification();
         database = PlanMeDatabase.getInstance(this);
         currentUser = (UserModel) getIntent().getSerializableExtra("User");
         uname = findViewById(R.id.username);
@@ -68,6 +77,34 @@ public class TaskActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
+        registerReceiver(batteryBroadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+
+        // Unregister reciever if activity is not in front
+        this.unregisterReceiver(batteryBroadcastReceiver);
+        super.onPause();
+    }
+
+    private void createNotification(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Plan Me";
+            String description = "Reminder for PlanMe";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("PlanMe", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 }

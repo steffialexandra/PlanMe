@@ -3,6 +3,7 @@ package id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.BatteryBroadcastReceiver;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.HistoryModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
@@ -42,6 +45,7 @@ public class NewTask extends AppCompatActivity {
         ArrayList<TaskModel> taskList;
         Integer number = new Random().nextInt();
         String taskid = Integer.toString(number);
+        BatteryBroadcastReceiver batteryBroadcastReceiver = new BatteryBroadcastReceiver();
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +54,6 @@ public class NewTask extends AppCompatActivity {
 
             database = PlanMeDatabase.getInstance(this);
             taskList = new ArrayList<TaskModel>();
-
-            //create notification
-            createNotification();
 
             tasktitle = findViewById(R.id.tasktitle);
             desc = findViewById(R.id.desc);
@@ -95,10 +96,11 @@ public class NewTask extends AppCompatActivity {
                         Intent newi = new Intent(NewTask.this, TaskActivity.class);
                         newi.putExtra("User", currentUser);
                         startActivity(newi);
-                        Toast.makeText(getApplicationContext(),"Plan Created!",Toast.LENGTH_SHORT).show();
+
                         // memanggil service untuk CalendarProvider dan AlarmManager
-                        startService(new Intent(NewTask.this, NotificationService.class).putExtra("date", date).putExtra("taskid", taskid));
+                        ContextCompat.startForegroundService(NewTask.this,new Intent(NewTask.this, NotificationService.class).putExtra("date", date).putExtra("taskid", taskid));
                         startService(new Intent(NewTask.this, CalendarService.class).putExtra("date", date).putExtra("newtitle", newtitle.getText().toString()).putExtra("newdesc", newdesc.getText().toString()));
+                        Toast.makeText(getApplicationContext(),"Plan Created!",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -124,16 +126,17 @@ public class NewTask extends AppCompatActivity {
         return f.format(calendar.getTime());
     }
 
-    private void createNotification(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Plan Me";
-            String description = "Reminder for PlanMe";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("PlanMe", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
+        registerReceiver(batteryBroadcastReceiver, filter);
     }
+
+    @Override
+    protected void onPause() {
+        this.unregisterReceiver(batteryBroadcastReceiver);
+        super.onPause();
+    }
+
 }

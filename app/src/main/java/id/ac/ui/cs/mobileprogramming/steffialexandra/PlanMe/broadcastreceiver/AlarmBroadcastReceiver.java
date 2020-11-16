@@ -1,8 +1,11 @@
 package id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -22,4 +25,3 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         notificationManager.notify(200, builder.build());
     }
 }
-

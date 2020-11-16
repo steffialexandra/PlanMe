@@ -20,7 +20,6 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             if(intentAction.equalsIgnoreCase(Intent.ACTION_BATTERY_LOW)){
                 Toast.makeText(context, "Your battery is low, please charge your device!", Toast.LENGTH_LONG).show();
             }
-            Log.v("a", "aaaaaaaaaaa");
         }
     }
 }

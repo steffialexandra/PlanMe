@@ -2,6 +2,7 @@ package id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.BatteryBroadcastReceiver;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.DaoAccess;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
@@ -27,6 +29,8 @@ public class SignUpActivity extends AppCompatActivity {
     private DaoAccess daoAccess;
 
     private ProgressDialog progressDialog;
+
+    BatteryBroadcastReceiver batteryBroadcastReceiver = new BatteryBroadcastReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +82,22 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
+        registerReceiver(batteryBroadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+
+        // Unregister reciever if activity is not in front
+        this.unregisterReceiver(batteryBroadcastReceiver);
+        super.onPause();
+    }
+
 
     private boolean isEmpty() {
         if (TextUtils.isEmpty(edtPassword.getText().toString()) ||

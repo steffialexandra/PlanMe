@@ -19,12 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.AlarmBroadcastReceiver;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.HistoryModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.NotificationService;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -101,7 +100,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                                 dialog.dismiss();
 
                                 //membatalkan alarmmanager untuk objek yang ingin dihapus
-                                Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
+                                Intent intent = new Intent(context, NotificationService.class);
                                 PendingIntent pi = PendingIntent.getBroadcast(context, Integer.valueOf(taskId), intent, 0);
                                 AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
                                 am.cancel(pi);
