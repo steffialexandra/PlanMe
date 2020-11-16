@@ -54,5 +54,5 @@ public interface DaoAccess {
     List<HistoryModel> getAllUserHistoryByUsername(String user);
 
     @Query("SELECT * FROM user_model WHERE username LIKE:uname")
-    boolean getUserByUsername(String uname);
+    UserModel getUserByUsername(String uname);
 }

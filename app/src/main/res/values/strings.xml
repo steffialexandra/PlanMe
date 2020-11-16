@@ -21,5 +21,6 @@
     <string name="nouser">User not found!</string>
     <string name="logout">-</string>
     <string name="wrongpass">Wrong Password!</string>
+    <string name="userexist">Username already exists!</string>
 
 </resources>

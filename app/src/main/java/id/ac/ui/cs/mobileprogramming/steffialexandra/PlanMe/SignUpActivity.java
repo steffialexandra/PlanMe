@@ -69,10 +69,15 @@ public class SignUpActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            UserModel user = new UserModel(edtUsername.getText().toString(), edtPassword.getText().toString());
-                            daoAccess.addUser(user);
-                            progressDialog.dismiss();
-                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                            UserModel check = daoAccess.getUserByUsername(edtUsername.getText().toString());
+                            if(check==null){
+                                UserModel user = new UserModel(edtUsername.getText().toString(), edtPassword.getText().toString());
+                                daoAccess.addUser(user);
+                                progressDialog.dismiss();
+                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                            }else{
+                                Toast.makeText(SignUpActivity.this, R.string.userexist, Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }, 1000);
 
@@ -93,7 +98,6 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
 
-        // Unregister reciever if activity is not in front
         this.unregisterReceiver(batteryBroadcastReceiver);
         super.onPause();
     }

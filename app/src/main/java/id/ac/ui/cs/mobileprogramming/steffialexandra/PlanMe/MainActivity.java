@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(i);
                                 finish();
                             }else{
-                                if(daoAccess.getUserByUsername(edtUname.getText().toString()) == true){
+                                if(daoAccess.getUserByUsername(edtUname.getText().toString()) != null){
                                     Toast.makeText(MainActivity.this, R.string.wrongpass, Toast.LENGTH_SHORT).show();
                                 }
                                 Toast.makeText(MainActivity.this, R.string.nouser, Toast.LENGTH_SHORT).show();

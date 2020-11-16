@@ -22,4 +22,5 @@
     <string name="nouser">User tidak ditemukan!</string>
     <string name="logout">-</string>
     <string name="wrongpass">Password anda salah!</string>
+    <string name="userexist">Username sudah terdaftar!</string>
 </resources>
