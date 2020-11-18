@@ -23,4 +23,5 @@
     <string name="logout">-</string>
     <string name="wrongpass">Password anda salah!</string>
     <string name="userexist">Username sudah terdaftar!</string>
+    <string name="remindmonday">Peringatkan saya Hari Senin!</string>
 </resources>

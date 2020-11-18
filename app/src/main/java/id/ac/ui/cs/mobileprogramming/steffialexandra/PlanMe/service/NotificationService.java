@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
+import android.provider.AlarmClock;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -48,8 +49,8 @@ public class NotificationService extends Service {
         calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date.substring(0,2)));
         calendar.set(Calendar.MONTH, Integer.valueOf(date.substring(3,5))-1);
         calendar.set(Calendar.YEAR, Integer.valueOf(date.substring(6,date.length())));
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.HOUR_OF_DAY, 00);
+        calendar.set(Calendar.MINUTE, 00);
         Intent newIntent = new Intent(this, AlarmBroadcastReceiver.class);
         PendingIntent pending = PendingIntent.getBroadcast(this,Integer.valueOf(taskid), newIntent,0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

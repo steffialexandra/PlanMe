@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.BatteryBroadcastReceiver;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.DaoAccess;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
@@ -77,6 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                             }else{
                                 Toast.makeText(SignUpActivity.this, R.string.userexist, Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }
                         }
                     }, 1000);

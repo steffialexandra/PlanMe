@@ -20,7 +20,7 @@
             android:id="@+id/titlepage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="32dp"
             android:gravity="center_horizontal"
             android:text="@string/app_name"
             android:textAlignment="center"
@@ -35,7 +35,7 @@
             android:id="@+id/username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="100dp"
             android:gravity="center_horizontal"
             android:textAlignment="center"
             android:textColor="#FFF"
@@ -45,14 +45,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/btAlarm"
+            android:layout_width="366dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_white"
+            android:text="@string/remindmonday"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasklist"
-        android:layout_width="396dp"
-        android:layout_height="495dp"
-        android:layout_marginTop="156dp"
+        android:layout_width="397dp"
+        android:layout_height="454dp"
+        android:layout_marginTop="196dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout">
 

@@ -1,10 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,12 +21,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.BatteryBroadcastReceiver;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.HistoryModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.CalendarService;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.NotificationService;
 
 public class NewTask extends AppCompatActivity {
@@ -97,10 +92,9 @@ public class NewTask extends AppCompatActivity {
                         newi.putExtra("User", currentUser);
                         startActivity(newi);
 
-                        // memanggil service untuk CalendarProvider dan AlarmManager
+                        // memanggil service AlarmManager
                         ContextCompat.startForegroundService(NewTask.this,new Intent(NewTask.this, NotificationService.class).putExtra("date", date).putExtra("taskid", taskid));
-                        startService(new Intent(NewTask.this, CalendarService.class).putExtra("date", date).putExtra("newtitle", newtitle.getText().toString()).putExtra("newdesc", newdesc.getText().toString()));
-                        Toast.makeText(getApplicationContext(),"Plan Created!",Toast.LENGTH_SHORT).show();
+                       Toast.makeText(getApplicationContext(),"Plan Created!",Toast.LENGTH_SHORT).show();
                     }
                 }
             });

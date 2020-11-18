@@ -10,21 +10,21 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.AlarmClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.broadcastreceiver.BatteryBroadcastReceiver;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
 
 public class TaskActivity extends AppCompatActivity {
 
-    Button btnAddNew, logoutBtn;
+    Button btnAddNew, logoutBtn, btnAlarm;
     ArrayList<TaskModel> taskList;
     RecyclerView tasksRecycler;
     TaskAdapter adapter;
@@ -77,6 +77,22 @@ public class TaskActivity extends AppCompatActivity {
             }
         });
 
+        btnAlarm = findViewById(R.id.btAlarm);
+        btnAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //memakai AlarmClock provider
+                Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+                i.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+                ArrayList<Integer> alarmDays= new ArrayList<Integer>();
+                alarmDays.add(Calendar.MONDAY);
+                i.putExtra(AlarmClock.EXTRA_DAYS, alarmDays);
+                i.putExtra(AlarmClock.EXTRA_HOUR,8);
+                i.putExtra(AlarmClock.EXTRA_MINUTES, 00);
+                i.putExtra(AlarmClock.EXTRA_MESSAGE, "Good morning, Monday is here! Let's do your tasks!");
+                startActivity(i);
+            }
+        });
     }
 
     @Override

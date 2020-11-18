@@ -60,7 +60,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
             public void onClick(View v){
                 TaskModel d = taskList.get(myViewHolder.getAdapterPosition());
                 final int taskId = d.getTaskid();
-                final Dialog dialog = new Dialog(context,android.R.style.Theme_NoTitleBar_Fullscreen);
+                final Dialog dialog = new Dialog(context,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                 dialog.setContentView(R.layout.viewtask);
                 int width = WindowManager.LayoutParams.MATCH_PARENT;
                 int height = WindowManager.LayoutParams.MATCH_PARENT;
