@@ -55,4 +55,8 @@ public interface DaoAccess {
 
     @Query("SELECT * FROM user_model WHERE username LIKE:uname")
     UserModel getUserByUsername(String uname);
+
+    @Insert
+    long addHistory(HistoryModel his);
+
 }

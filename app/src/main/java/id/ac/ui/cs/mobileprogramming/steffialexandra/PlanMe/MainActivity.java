@@ -2,7 +2,6 @@ package id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.DaoAccess;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.viewmodel.UserViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,22 +28,21 @@ public class MainActivity extends AppCompatActivity {
 
     private DaoAccess daoAccess;
     private ProgressDialog progressDialog;
-    private BatteryBroadcastReceiver batteryBroadcastReceiver;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        batteryBroadcastReceiver = new BatteryBroadcastReceiver();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Checking User...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setProgress(0);
 
-        database = PlanMeDatabase.getInstance(this);
-        daoAccess = database.daoAccess();
+        PlanMeDatabase database = PlanMeDatabase.getInstance(this);
+        userViewModel = new UserViewModel(database);
 
         btSignIn = findViewById(R.id.btSignIn);
         btSignUp = findViewById(R.id.btSignUp);
@@ -65,17 +64,18 @@ public class MainActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            UserModel user = daoAccess.getUser(edtUname.getText().toString(), edtPassword.getText().toString());
+                            UserModel user = userViewModel.getUserFromDb(edtUname.getText().toString(), edtPassword.getText().toString());
                             if(user!=null){
                                 Intent i = new Intent(MainActivity.this, TaskActivity.class);
                                 i.putExtra("User", user);
                                 startActivity(i);
                                 finish();
                             }else{
-                                if(daoAccess.getUserByUsername(edtUname.getText().toString()) != null){
+                                if(userViewModel.getUnameAvailability(edtUname.getText().toString()) == false){
                                     Toast.makeText(MainActivity.this, R.string.wrongpass, Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(MainActivity.this, R.string.nouser, Toast.LENGTH_SHORT).show();
                                 }
-                                Toast.makeText(MainActivity.this, R.string.nouser, Toast.LENGTH_SHORT).show();
                             }
                             progressDialog.dismiss();
                         }
@@ -88,21 +88,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
-        registerReceiver(batteryBroadcastReceiver, filter);
-    }
-
-    @Override
-    protected void onPause() {
-
-        // Unregister reciever if activity is not in front
-        this.unregisterReceiver(batteryBroadcastReceiver);
-        super.onPause();
     }
 
     private boolean emptyValidation() {

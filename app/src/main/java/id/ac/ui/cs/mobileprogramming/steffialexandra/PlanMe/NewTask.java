@@ -1,7 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,11 +20,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.HistoryModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.NotificationService;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.viewmodel.HistoryViewModel;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.viewmodel.TaskViewModel;
 
 public class NewTask extends AppCompatActivity {
 
@@ -37,17 +37,19 @@ public class NewTask extends AppCompatActivity {
         Button saveButton, cancelButton;
         PlanMeDatabase database;
         TaskAdapter adapter;
-        ArrayList<TaskModel> taskList;
         Integer number = new Random().nextInt();
         String taskid = Integer.toString(number);
-        BatteryBroadcastReceiver batteryBroadcastReceiver = new BatteryBroadcastReceiver();
+        TaskViewModel taskViewModel;
+        HistoryViewModel historyViewModel;
+        ArrayList<TaskModel> taskList;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.new_task_layout);
-
             database = PlanMeDatabase.getInstance(this);
+            taskViewModel = new TaskViewModel(database);
+            historyViewModel = new HistoryViewModel(database);
             taskList = new ArrayList<TaskModel>();
 
             tasktitle = findViewById(R.id.tasktitle);
@@ -71,30 +73,23 @@ public class NewTask extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Please fill all of the fields!",Toast.LENGTH_SHORT).show(); }
                     else{
                         //creating plan
-                        TaskModel newTask = new TaskModel();
-                        HistoryModel newHistory = new HistoryModel();
-                        newTask.setDesc(newdesc.getText().toString());
-                        newTask.setTitle(newtitle.getText().toString());
                         String date = getDateFromDatePicker(newdate);
-                        newTask.setTaskdate(date);
-                        newTask.setPriority(newpriority.isChecked());
                         UserModel currentUser = (UserModel) getIntent().getSerializableExtra("User");
-                        newHistory.setUser(currentUser.getUsername());
-                        newTask.setCreator(currentUser.getUsername());
-                        newHistory.setTask(newTask.getTitle());
-                        newHistory.setType(0);
-                        database.daoAccess().insertTask(newTask);
+                        taskViewModel.makeNewTask(newtitle.getText().toString(), newdesc.getText().toString(), date, newpriority.isChecked(), currentUser.getUsername());
+                        historyViewModel.makeNewHistory(currentUser.getUsername(), newtitle.getText().toString(), Calendar.getInstance().getTime().toString(), 0);
+
                         adapter = new TaskAdapter(NewTask.this, taskList, currentUser);
                         taskList.clear();
-                        taskList.addAll(database.daoAccess().getAllTasks());
+                        taskList.addAll(taskViewModel.getAllTasks());
                         adapter.notifyDataSetChanged();
+
                         Intent newi = new Intent(NewTask.this, TaskActivity.class);
                         newi.putExtra("User", currentUser);
                         startActivity(newi);
 
                         // memanggil service AlarmManager
                         ContextCompat.startForegroundService(NewTask.this,new Intent(NewTask.this, NotificationService.class).putExtra("date", date).putExtra("taskid", taskid));
-                       Toast.makeText(getApplicationContext(),"Plan Created!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Plan Created!",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -118,19 +113,6 @@ public class NewTask extends AppCompatActivity {
         calendar.set(year, month, day);
         Format f = new SimpleDateFormat("dd-MM-yyyy");
         return f.format(calendar.getTime());
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
-        registerReceiver(batteryBroadcastReceiver, filter);
-    }
-
-    @Override
-    protected void onPause() {
-        this.unregisterReceiver(batteryBroadcastReceiver);
-        super.onPause();
     }
 
 }

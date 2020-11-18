@@ -19,17 +19,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.HistoryModel;
+import java.util.Calendar;
+
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.NotificationService;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.viewmodel.HistoryViewModel;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.viewmodel.TaskViewModel;
 
 import static android.content.Context.ALARM_SERVICE;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
 
     PlanMeDatabase database;
+    TaskViewModel taskViewModel;
+    HistoryViewModel historyViewModel;
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tasktitle, desc, taskdate;
@@ -51,7 +56,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
-        database = PlanMeDatabase.getInstance(context);
+
+        PlanMeDatabase database = PlanMeDatabase.getInstance(context);
+        taskViewModel = new TaskViewModel(database);
+        historyViewModel = new HistoryViewModel(database);
+
         myViewHolder.tasktitle.setText(taskList.get(position).getTitle());
         myViewHolder.taskdate.setText(taskList.get(position).getTaskdate());
         myViewHolder.priority.setChecked(taskList.get(position).getPriority());
@@ -87,12 +96,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                             @Override
                             public void onClick(DialogInterface dialogs, int which) {
                                 TaskModel d = taskList.get(myViewHolder.getAdapterPosition());
-                                database.daoAccess().deleteItem(d.taskid);
+                                taskViewModel.deleteTask(d.taskid);
                                 int position = myViewHolder.getAdapterPosition();
-                                HistoryModel newHistory = new HistoryModel();
-                                newHistory.setUser(userModel.getUsername());
-                                newHistory.setTask(tasktitle.toString());
-                                newHistory.setType(1);
+                                historyViewModel.makeNewHistory(userModel.getUsername(), tasktitle.toString(), Calendar.getInstance().getTime().toString(),1);
+
                                 taskList.remove(position);
                                 notifyItemRemoved(position);
                                 notifyItemRangeChanged(position, taskList.size());

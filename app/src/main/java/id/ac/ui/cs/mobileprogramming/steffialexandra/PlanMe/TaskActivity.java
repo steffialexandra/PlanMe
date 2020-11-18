@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.AlarmClock;
@@ -21,6 +20,7 @@ import java.util.Calendar;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.PlanMeDatabase;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.TaskModel;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.data.UserModel;
+import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.viewmodel.TaskViewModel;
 
 public class TaskActivity extends AppCompatActivity {
 
@@ -32,20 +32,22 @@ public class TaskActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     PlanMeDatabase database;
     UserModel currentUser;
-    BatteryBroadcastReceiver batteryBroadcastReceiver = new BatteryBroadcastReceiver();
+    TaskViewModel taskViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_activity);
-
+        PlanMeDatabase database = PlanMeDatabase.getInstance(this);
+        taskViewModel = new TaskViewModel(database);
         //create notification
         createNotification();
         database = PlanMeDatabase.getInstance(this);
         currentUser = (UserModel) getIntent().getSerializableExtra("User");
         uname = findViewById(R.id.username);
-        taskList = (ArrayList<TaskModel>) database.daoAccess().loadAllByUsername(currentUser.getUsername());
+        taskList = taskViewModel.getAllTasksByUsername(currentUser.getUsername());
         uname.setText("Welcome, " + currentUser.getUsername());
+
         /*database.daoAccess().deleteAll();
         taskList.clear();*/
 
@@ -93,21 +95,6 @@ public class TaskActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
-        registerReceiver(batteryBroadcastReceiver, filter);
-    }
-
-    @Override
-    protected void onPause() {
-
-        // Unregister reciever if activity is not in front
-        this.unregisterReceiver(batteryBroadcastReceiver);
-        super.onPause();
     }
 
     private void createNotification(){
