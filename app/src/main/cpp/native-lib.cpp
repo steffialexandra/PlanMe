@@ -16,3 +16,4 @@ extern "C" JNIEXPORT jstring Java_id_ac_ui_cs_mobileprogramming_steffialexandra_
     result = env->NewStringUTF(msg);
     return result;
 }
+

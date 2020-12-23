@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe">
 
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
+    <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
@@ -27,35 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".SignUpActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.TaskActivity" android:configChanges="orientation|screenSize|keyboardHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.NewTask" android:configChanges="orientation|screenSize|keyboardHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.TaskActivity" android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.NewTask" android:configChanges="orientation|screenSize|keyboardHidden"/>
         <receiver android:name=".broadcastreceiver.AlarmBroadcastReceiver">
         </receiver>
     </application>
