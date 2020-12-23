@@ -65,9 +65,9 @@
         android:id="@+id/tasklist"
         android:layout_width="397dp"
         android:layout_height="454dp"
-        android:layout_marginTop="196dp"
+        android:layout_marginTop="208dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout">
 
@@ -85,8 +85,42 @@
         android:textSize="38sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/logout"
-        app:layout_constraintHorizontal_bias="0.67"
+        app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.966" />
+
+    <Button
+        android:id="@+id/btnMusic"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/bgbtnmusic"
+        android:gravity="center_horizontal"
+        android:text="@string/musicbtn"
+        android:textAlignment="center"
+        android:textColor="#FFF"
+        android:textSize="38sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAddNew"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.966" />
+
+    <Button
+        android:id="@+id/btnLoc"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:text="🖈"
+        android:background="@drawable/bgbtnlocation"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="#FFF"
+        android:textSize="38sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/logout"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toEndOf="@+id/btnMusic"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.966" />
 
@@ -94,6 +128,8 @@
         android:id="@+id/logout"
         android:layout_width="52dp"
         android:layout_height="52dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
         android:background="@drawable/bgbtnlogout"
         android:gravity="center_horizontal"
         android:text="@string/logout"
@@ -102,8 +138,6 @@
         android:textSize="38sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.66"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.966" />
 

@@ -23,5 +23,5 @@
     <string name="wrongpass">Wrong Password!</string>
     <string name="userexist">Username already exists!</string>
     <string name="remindmonday">Remind me next Monday!</string>
-
+    <string name="musicbtn">♫</string>
 </resources>

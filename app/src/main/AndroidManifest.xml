@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe">
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
-    </uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"></uses-permission>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/app_logo"
@@ -13,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <service android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.NotificationService" android:enabled="true"/>
+        <service android:name="id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.service.MusicService" android:enabled="true"/>
 
         <activity android:name=".SplashScreen">
             <intent-filter>
