@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -44,7 +45,7 @@ public class NotificationService extends Service {
         Intent newIntent = new Intent(this, AlarmBroadcastReceiver.class);
         PendingIntent pending = PendingIntent.getBroadcast(this,Integer.valueOf(taskid), newIntent,0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis()-calendar.getTimeInMillis(), pending);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis(), pending);
         Notification notification = new NotificationCompat.Builder(this, "PlanMe")
                 .setContentTitle("PlanMe")
                 .setContentText("Background process, check!")
