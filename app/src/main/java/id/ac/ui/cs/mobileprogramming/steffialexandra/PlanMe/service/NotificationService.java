@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.NewTask;
 import id.ac.ui.cs.mobileprogramming.steffialexandra.PlanMe.R;
@@ -37,15 +38,19 @@ public class NotificationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date.substring(0,2)));
-        calendar.set(Calendar.MONTH, Integer.valueOf(date.substring(3,5))-1);
-        calendar.set(Calendar.YEAR, Integer.valueOf(date.substring(6,date.length())));
-        calendar.set(Calendar.HOUR_OF_DAY, 00);
-        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        calendar.set(Calendar.MINUTE, 55);
+        calendar.set(Calendar.SECOND, 0);
+
+        if (calendar.getTime().compareTo(new Date()) < 0)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
         Intent newIntent = new Intent(this, AlarmBroadcastReceiver.class);
-        PendingIntent pending = PendingIntent.getBroadcast(this,Integer.valueOf(taskid), newIntent,0);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pending = PendingIntent.getBroadcast(this,Integer.valueOf(taskid), newIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis(), pending);
+        Log.v("abc", String.valueOf(calendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis()));
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pending);
         Notification notification = new NotificationCompat.Builder(this, "PlanMe")
                 .setContentTitle("PlanMe")
                 .setContentText("Background process, check!")

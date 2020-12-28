@@ -117,9 +117,11 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onClick(View v) {
                 if (!isNetworkConnected()) {
-                    Toast.makeText(TaskActivity.this, "Please connect to WiFi!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(TaskActivity.this,
+                            "Please connect to WiFi!", Toast.LENGTH_LONG).show();
                 } else {
-                    Intent myService = new Intent(TaskActivity.this, MusicService.class);
+                    Intent myService = new Intent(TaskActivity.this,
+                            MusicService.class);
                     myService.setAction("com.example.action.PLAY");
                     startService(myService);
                 }
@@ -167,8 +169,10 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
     private void showAlert() {
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(TaskActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_LOCATION_CODE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(TaskActivity.this, new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, ACCESS_LOCATION_CODE);
         }else{
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,  0, 10, locationListener);
         }
@@ -188,7 +192,8 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
     }
 
     private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
         if (mWifi.isConnected()) {
@@ -207,7 +212,8 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions(TaskActivity.this,new String[]{permission},permissionRequestCode);
+                        ActivityCompat.requestPermissions(TaskActivity.this,
+                                new String[]{permission},permissionRequestCode);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -234,7 +240,10 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                         .show();
                 showAlert();
             } else {
-                showExplanation("We need permission to read your location", "To get the latitude and longitude of your position, please enable the permission for Location from Settings", Manifest.permission.ACCESS_FINE_LOCATION, requestCode);
+                showExplanation("We need permission to read your location",
+                        "To get the latitude and longitude of your position, please" +
+                                " enable the permission for Location from Settings",
+                        Manifest.permission.ACCESS_FINE_LOCATION, requestCode);
             }
         }
     }

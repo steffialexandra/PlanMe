@@ -21,12 +21,9 @@ import java.io.IOException;
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener {
     private static final String ACTION_PLAY = "com.example.action.PLAY";
-    private static final String ACTION_PAUSE = "com.example.action.PAUSE";
-    private static final String ACTION_RESUME = "com.example.action.RESUME";
     MediaPlayer mediaPlayer = null;
     boolean isPlaying = false;
     WifiManager.WifiLock wifiLock;
-    int length;
     String AudioURL = "https://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3";
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -54,20 +51,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
         return startId;
     }
-
-/*
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(ACTION_PAUSE)) {
-                mediaPlayer.pause();
-                length = mediaPlayer.getCurrentPosition();
-            }else if(intent.getAction().equals(ACTION_RESUME)){
-                mediaPlayer.seekTo(length);
-                mediaPlayer.start();
-            }
-        }
-    };*/
 
     @Nullable
     @Override
